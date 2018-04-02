@@ -31,7 +31,7 @@ app.get('/', ((req, res) => {
 /*
 *REQUEST
 */
-app.get('/movies', (req, res) => {
+app.get('/moviesss', (req, res) => {
     //res.send('bientot des films ici')
     const title = "Films français des 30 dernières années";
     frenchMovies = [{
@@ -66,7 +66,9 @@ app.post('/movies',urlencodedParser ,(req,res)=>{
 //app.get('/movies-details', (req,res)=>{
 //res.send('bientot des films ici')
 //});
-
+app.get('/movie-search', (req, res) =>{
+    res.render('movie-search');
+});
 app.get('/movies/add', (req, res) => {
     res.send('formulaire')
 });
