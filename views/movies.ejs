@@ -1,57 +1,35 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../public/style.css">
-    <title>Document</title>
-</head>
-<body>
-        <% include ./partials/header  %>
-    <h1><%= title  %></h1>
-    <div class="rench-movies">
-            <% for(movie of movies) {%>
-               <div><%= movie.title%> (<%= movie.year%>)</div>
-            <% }%>
-           </div>
-           <br>
-           <br>
-           <br>
-           <div>
-				<form action="/movies" method="POST">
+	<html lang="fr">
+	<% include ./partials/head %>
+	<body>
+		<% include ./partials/header %>
+
+		<div class="central">
+			<h1><%= title %></h1>
+						
+			<div class="french-movies">
+				<% for(movie of movies) { %>
+					<div><%= movie.title %> (<%= movie.year %>)</div>
+				<% } %>
+			</div>
+			<br>
+			<div>
+				<form>
 					<legend>Ajouter un film</legend>
-					<label for="movietitle">Titre du film</label><br>
-                    <input type="text" name="movietitle" id="movieTitle">
-                    <br>
-					<label for="movieyear">Année du film</label><br>
-                    <input type="text" name="movieyear" id="movieYear">
-                    <br>
+					<label for="movietitle">Titre du film</label>
+					<input type="text" name="movietitle" id="movietitle">
+					<label for="movieyear">Année du film</label>
+					<input type="text" name="movieyear" id="movieyear">
 					<button type="submit">ajouter</button>
 				</form>
 			</div>
-    <div>
-            <% include ./partials/footer  %>
-    </div>
-    <script>
-        var form = document.querySelector('form');
-        form.addEventListener("submit", addMovieUsingFetch);	
-			function addMovieUsingFetch(event) {
-				console.log('using addMovieUsingFetch()');
-				event.preventDefault();
-                fetch('/movies', {
-					method: 'POST',
-					body: new FormData(form)
-				})
-				.then(res => {
-                    console.log(res);
-                    
-                })
-				.catch(function(error) {
-					console.log('request failed', error)
-				});
-			} 
-    var form = document.querySelector('form');
+		</div>
+
+		<footer>
+			<% include ./partials/footer %>
+		</footer>
+		<script>
+			var form = document.querySelector('form');
 			form.addEventListener("submit", addMovie);	
 			function addMovie(event) {
 				if(window.fetch) {
@@ -61,7 +39,6 @@
 				}
 			}	
 			function addMovieUsingFetch(event) {
-				console.log('using addMovieUsingFetch()');
 				event.preventDefault();
 				fetch('/movies', {
 					method: 'POST',
@@ -90,7 +67,6 @@
 			function addMovieUsingXHR(event) {
 				// this browser does NOT support fetch. Fall back to XHR
 				event.preventDefault();
-				console.log('using addMovieUsingXHR()');				
 				// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
 				var xhr = new XMLHttpRequest();
 				xhr.open("POST", '/movies-old-browser', true);
@@ -106,8 +82,8 @@
 				var movietitle = document.getElementById('movietitle').value;
 				var movieyear = document.getElementById('movieyear').value;
 				var payLoad = "movietitle=" + movietitle + "&" + "movieyear=" + movieyear; 
-				xhr.send(payLoad);  				
+				xhr.send(payLoad); 				
 			}
-    </script>
-</body>
+		</script>
+	</body>
 </html>
